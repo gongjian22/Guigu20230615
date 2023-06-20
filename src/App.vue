@@ -1,11 +1,10 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <h1>app.vue</h1>
+  <TestWord />
 </template>
 
-<style scoped>
+<script setup lang="ts">
+import TestWord from '@/components/TestWord.vue'
+</script>
 
-</style>
+<style scoped></style>
