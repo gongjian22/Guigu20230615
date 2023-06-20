@@ -1,10 +1,7 @@
 <template>
-  <h1>app.vue</h1>
-  <TestWord />
+  <div><router-view></router-view></div>
 </template>
 
-<script setup lang="ts">
-import TestWord from '@/components/TestWord.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
