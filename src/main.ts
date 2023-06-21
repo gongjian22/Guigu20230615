@@ -10,10 +10,11 @@ import 'element-plus/dist/index.css'
 //@ts-ignore
 import App from '@/App.vue'
 import router from './router'
+import pinia from './store'
 
 const app = createApp(App)
 
-app.use(router).use(ElementPlus, {
+app.use(router).use(pinia).use(ElementPlus, {
   locale: zhCn
 })
 
