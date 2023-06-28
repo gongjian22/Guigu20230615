@@ -1,27 +1,22 @@
 <template>
   <div class="layout_container">
-    <div class="layout_slider">
+    <div class="layout_slider" :class="{ fold: layoutSettingStore.fold }">
       <Logo />
       <el-scrollbar class="scrollBar">
-        <el-menu background-color="#001529" text-color="#fff" :default-active="route.path">
-          <!-- <el-menu-item index="1">processing center</el-menu-item>
-          <el-menu-item index="2">pr center</el-menu-item>
-          <el-sub-menu index="3">
-            <template #title>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="3-1">item one</el-menu-item>
-            <el-menu-item index="3-2">item 2</el-menu-item>
-            <el-menu-item index="3-3">item 3</el-menu-item>
-          </el-sub-menu> -->
+        <el-menu
+          background-color="#001529"
+          text-color="#fff"
+          :default-active="route.path"
+          :collapse="layoutSettingStore.fold"
+        >
           <Menu :menuList="userStore.menuRoutes" />
         </el-menu>
       </el-scrollbar>
     </div>
-    <div class="layout_tabbar">
+    <div class="layout_tabbar" :class="{ fold: layoutSettingStore.fold }">
       <Tabbar />
     </div>
-    <div class="layout_main">
+    <div class="layout_main" :class="{ fold: layoutSettingStore.fold }">
       <!-- <router-view></router-view> -->
       <Main />
     </div>
@@ -34,10 +29,18 @@ import Menu from './menu/index.vue'
 import Main from './main/index.vue'
 import Tabbar from './tabbar/index.vue'
 import useUserStore from '@/store/modules/user'
+import useLayoutSettingStore from '@/store/modules/setting'
 
+let layoutSettingStore = useLayoutSettingStore()
 const route = useRoute()
 
 let userStore = useUserStore()
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Layout'
+}
 </script>
 
 <style scoped lang="less">
@@ -61,6 +64,10 @@ let userStore = useUserStore()
     width: 260px;
     height: 100vh;
     background-color: #001529;
+    transition: all 0.3s;
+    &.fold {
+      width: 50px;
+    }
     .scrollBar {
       width: 100%;
       height: calc(100vh - 50px);
@@ -72,10 +79,15 @@ let userStore = useUserStore()
 
   .layout_tabbar {
     position: absolute;
-    width: calc(100% - 276px);
+    width: calc(100% - 260px);
     height: 50px;
     top: 8px;
-    left: 268px;
+    left: 260px;
+    transition: all 0.3s;
+    &.fold {
+      width: calc(100% - 50px);
+      left: 50px;
+    }
   }
 
   .layout_main {
@@ -86,6 +98,11 @@ let userStore = useUserStore()
     background-color: yellow;
     left: 268px;
     top: 58px;
+    transition: all 0.3s;
+    &.fold {
+      width: calc(100% - 50px);
+      left: 50px;
+    }
   }
 }
 </style>

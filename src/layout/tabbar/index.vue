@@ -14,6 +14,12 @@ import BreadCrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
 </script>
 
+<script lang="ts">
+export default {
+  name: 'Tabbar'
+}
+</script>
+
 <style lang="less" scoped>
 .tabbar {
   width: 100%;
@@ -28,21 +34,21 @@ import Setting from './setting/index.vue'
   .tabbar_right {
     display: flex;
     align-items: center;
-    .el-button{
-      width:30px;
+    .el-button {
+      width: 30px;
       height: 30px;
     }
     img {
       width: 35px;
       height: 35px;
       border-radius: 50%;
-      margin-left:15px;
-      margin-right:10px;
+      margin-left: 15px;
+      margin-right: 10px;
     }
-    .el-dropdown-link{
-      display:flex;
-      align-items:center;
-      margin-right:5px;
+    .el-dropdown-link {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
     }
   }
 }

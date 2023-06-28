@@ -15,9 +15,9 @@ export const constantRoute = [
     name: 'layout',
     redirect: '/home',
     meta: {
-      title: 'layout',
+      title: '',
       hidden: false,
-      icon: 'Avatar'
+      icon: ''
     },
     children: [
       {
@@ -30,16 +30,6 @@ export const constantRoute = [
           icon: 'HomeFilled'
         }
       }
-      // {
-      //   path: '/ceshi',
-      //   name: 'ceshi',
-      //   component: () => import('@/views/home/index.vue'),
-      //   meta: {
-      //     title: 'ceshi',
-      //     hidden: false,
-      //     icon: 'Histogram'
-      //   }
-      // }
     ]
   },
   {
@@ -76,6 +66,7 @@ export const constantRoute = [
     path: '/acl',
     name: 'Acl',
     component: () => import('@/layout/index.vue'),
+    redirect:'/acl/user',
     meta: {
       title: '权限管理',
       hidden: false,
@@ -111,13 +102,14 @@ export const constantRoute = [
           hidden: false,
           icon: 'Monitor'
         }
-      },
+      }
     ]
   },
   {
     path: '/product',
     name: 'Product',
     component: () => import('@/layout/index.vue'),
+    redirect:'/product/attr',
     meta: {
       title: '商品管理',
       hidden: false,

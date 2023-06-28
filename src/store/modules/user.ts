@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reqLogin } from '@/api/user'
+import { reqLogin, reqUserInfo } from '@/api/user'
 import { loginForm, loginResponseData } from '@/api/user/type'
 import { UserState } from './types/type'
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
@@ -9,7 +9,9 @@ let useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(),
-      menuRoutes: constantRoute
+      menuRoutes: constantRoute,
+      username: '',
+      avatar: ''
     }
   },
   actions: {
@@ -21,6 +23,13 @@ let useUserStore = defineStore('User', {
         return 'ok'
       } else {
         return Promise.reject(new Error(res.data.message))
+      }
+    },
+    async userInfo() {
+      let res = await reqUserInfo()
+      if (res.code === 200) {
+        this.username = res.data.checkUser.username;
+        this.avatar = res.data.checkUser.avatar
       }
     }
   },

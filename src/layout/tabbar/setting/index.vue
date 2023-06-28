@@ -1,11 +1,11 @@
 <template>
-  <el-button type="primary" size="small" icon="Refresh" circle></el-button>
-  <el-button type="primary" size="small" icon="FullScreen" circle></el-button>
+  <el-button type="primary" size="small" icon="Refresh" circle @click="updateRefesh"></el-button>
+  <el-button type="primary" size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
   <el-button type="primary" size="small" icon="Setting" circle></el-button>
-  <img src="../../../../Q03.jpg" alt="" />
+  <img :src="useStore.avatar" alt="" />
   <el-dropdown>
     <span class="el-dropdown-link">
-      admin
+      admin{{ useStore.username }}
       <el-icon class="el-icon--right">
         <arrow-down />
       </el-icon>
@@ -18,14 +18,39 @@
   </el-dropdown>
 </template>
 
-<script></script>
+<script setup lang="ts">
+import useLayoutSettingStore from '@/store/modules/setting'
+import useUserStore from '@/store/modules/user';
+let useStore = useUserStore();
+let LayoutSettingStore = useLayoutSettingStore()
+
+const updateRefesh = () => {
+  LayoutSettingStore.refesh = !LayoutSettingStore.refesh
+}
+
+const fullScreen = () => {
+  console.log(document.fullscreenElement)
+  let full = document.fullscreenElement
+  if (!full) {
+    document.documentElement.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Setting'
+}
+</script>
 
 <style scoped lang="less">
-img{
+img {
   width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      margin-left:15px;
-      margin-right:10px;
+  height: 35px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-right: 10px;
 }
 </style>
