@@ -32,15 +32,25 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter ,useRoute} from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 
 const $router = useRouter()
+let route = useRoute()
 
 let loginForms = ref()
 
 const userNameValidator = (ruler:any,value:any,callback:any) => {
+  console.log(ruler,value,callback);
+  if (/^[a-zA-Z]{5,10}$/.test(value)) {
+    callback()
+  } else {
+    callback(new Error('length is 5-10'))
+  }
+}
+
+const userNumberValidator = (ruler:any,value:any,callback:any) => {
   console.log(ruler,value,callback);
   if (/^\d{5,10}$/.test(value)) {
     callback()
@@ -54,7 +64,7 @@ const rules = {
     {validator:userNameValidator,trigger:'blur'}
   ],
   password: [
-  {validator:userNameValidator,trigger:'blur'}
+  {validator:userNumberValidator,trigger:'blur'}
   ]
 }
 
@@ -74,7 +84,8 @@ const login = async () => {
   try {
     // 保证登陆成功
     await userStore.userLogin(loginForm)
-    $router.push('/')
+    let redirect:any = route.query.redirect
+    $router.push({path:redirect||'/'})
     ElNotification({
       type: 'success',
       message: '登陆成功',
